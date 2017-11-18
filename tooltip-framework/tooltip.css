@@ -1,0 +1,150 @@
+/*TOOLTIP POPUP FRAMEWORK*/
+
+/*USAGE*/
+
+/*markup
+  <div class="tooltip-container [optional dark/light]">
+    <someElement class="tooltip-activator"></someElement>
+    <div class="tooltip-msg *positioning class* *arrow-direction class* *arrow-position-class*"
+      data-text="**message inside popup**"></div>
+  </div>
+*/
+
+/*position class:  add the class abs or fix to position the popup absolute
+or fixed respectively, this is for the situation where the help popup may
+exist in a fixed component, if it was always position abs, scrolling would cause
+undesired results for the popup*/
+
+/*arrow class: currently only arrow-down is supported and styled for **animation effect included*/
+/*arrow position class: currently only "on-left" and "on-right" is styled for*/
+
+/***the popup will automatically center itself within the content***/
+/*I wrote the class to be unnoppinated in color scheme so that it can be customizeable*/
+/*that being said, by default a dark/light theme class can be applied to the tooltip container for
+for some default styling*/
+
+/*here are some examples*/
+/*
+  this container is using a font-awesome icon
+  <div class="tooltip-container dark">
+    <i class="fa fa-question-circle tooltip-activator" aria-hidden="true"></i>
+    <div class="tooltip-msg abs arrow-down on-right" data-text="**message inside popup**"></div>
+  </div>
+  this container is using a button
+  <div class="tooltip-container dark">
+    <button class="tooltip-activator" aria-hidden="true">whatsup yoo?</button>
+    <div class="tooltip-msg abs arrow-down on-right" data-text="**message inside popup**"></div>
+  </div>*/
+
+.tooltip-container  {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  width: inherit;
+}
+
+.tooltip-container .tooltip-msg {
+  -webkit-transition: all .75s cubic-bezier(0.19, 1, 0.22, 1);
+  bottom: 0;
+  font-weight: 400;
+  height: 100%;
+  left: 0;
+  line-height: 15px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all .75s cubic-bezier(0.19, 1, 0.22, 1);
+  width: 100%;
+  z-index: 1;
+}
+
+.tooltip-container .tooltip-msg.abs, .tooltip-container .tooltip-activator:hover + .tooltip-msg.abs::before,
+ .tooltip-container .tooltip-activator:hover + .tooltip-msg.abs::after {
+  position: absolute;
+}
+
+.tooltip-container .tooltip-msg.fix, .tooltip-container .tooltip-activator:hover + .tooltip-msg.fix::before,
+ .tooltip-container .tooltip-activator:hover + .tooltip-msg.fix::after {
+  position: fixed;
+}
+
+.tooltip-container .tooltip-activator:hover + .tooltip-msg {
+  opacity: 1;
+}
+/*animate slide down*/
+.tooltip-container .tooltip-msg.arrow-down {
+  -webkit-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+
+.tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-down {
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px); 
+}
+
+.tooltip-container .tooltip-activator:hover + .tooltip-msg::before {
+  border-radius: 1px;
+  content: "";
+  height: 12px;
+  position: absolute;
+  width: 12px;
+  z-index: 1;
+}
+
+.tooltip-container .tooltip-activator:hover + .tooltip-msg::after {
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  content: attr(data-text);
+  font-size: 11px;
+  max-width: 175px;
+  min-width: 125px;
+  padding: 10px;
+}
+
+/*positioning*/
+.tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-down::after {
+  transform: translateY(0%);
+  bottom: calc(100% + 14px);
+  left: -1em;
+  /*added default positioning incase froget to add arrow positioning class*/
+}
+.tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-down::before {
+  transform: translateY(-50%) skew(-45deg, 45deg);
+  bottom: calc(1em + 2px);
+  left: calc(50% - 6px);
+  /*added default positioning incase froget to add arrow positioning class*/
+}
+.tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-down.on-right::after {
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateY(-0%) translateX(-75%);
+}
+.tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-down.on-left::after {
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateY(-0%) translateX(-25%);
+}
+
+/*default coloring styles*/
+.tooltip-container.dark .tooltip-msg {
+  color: #fff;
+}
+.tooltip-container.dark .tooltip-activator:hover + .tooltip-msg::after {
+  background-color: #232323;
+}
+
+.tooltip-container.dark .tooltip-activator:hover + .tooltip-msg::before {
+  background-color: #232323;
+}
+
+.tooltip-container.light .tooltip-msg {
+  color: #232323;
+}
+
+.tooltip-container.light .tooltip-activator:hover + .tooltip-msg::after {
+  background-color: #fff;
+}
+
+.tooltip-container.light .tooltip-activator:hover + .tooltip-msg::before {
+  background-color: #fff;
+}
+

@@ -43,6 +43,17 @@ for some default styling*/
   width: inherit;
 }
 
+.tooltip-container .tooltip-caption {
+  -webkit-transition: all .75s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all .75s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 1;
+  opacity: 0;
+  min-width: 125px;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
 .tooltip-container .tooltip-msg {
   -webkit-transition: all .75s cubic-bezier(0.19, 1, 0.22, 1);
   bottom: 0;
@@ -57,17 +68,51 @@ for some default styling*/
   z-index: 1;
 }
 
+.tooltip-activator:hover.tooltip-hoverable::after {
+  width: 50px;
+  height: 50px;
+  content: "";
+  position: absolute;
+  /* background: yellow; */
+  top: 50%;
+  /* z-index: -1; */
+  /* left: 0; */
+  transform: translate(-25px, -25px);
+}
+
+.tooltip-msg::after {
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  font-size: 11px;
+  max-width: 175px;
+  min-width: 125px;
+  padding: 10px;
+}
+
+.tooltip-msg.wide::after {
+  min-width: 200px;
+  max-width: 225px;
+}
+.tooltip-msg.wide-2x::after {
+  min-width: 300px;
+  max-width: 350px;
+}
 .tooltip-container .tooltip-msg.abs, .tooltip-container .tooltip-activator:hover + .tooltip-msg.abs::before,
- .tooltip-container .tooltip-activator:hover + .tooltip-msg.abs::after {
+ .tooltip-container .tooltip-activator:hover + .tooltip-msg.abs::after,
+ .tooltip-container .tooltip-caption.abs,
+ .tooltip-container .tooltip-caption.abs::before {
   position: absolute;
 }
 
 .tooltip-container .tooltip-msg.fix, .tooltip-container .tooltip-activator:hover + .tooltip-msg.fix::before,
- .tooltip-container .tooltip-activator:hover + .tooltip-msg.fix::after {
+ .tooltip-container .tooltip-activator:hover + .tooltip-msg.fix::after,
+ .tooltip-container .tooltip-caption.fix,
+ .tooltip-container .tooltip-caption.fix::before {
   position: fixed;
 }
 
-.tooltip-container .tooltip-activator:hover + .tooltip-msg {
+.tooltip-container .tooltip-activator:hover + .tooltip-msg,
+.tooltip-container .tooltip-activator:hover + .tooltip-caption {
   opacity: 1;
 }
 /*animate slide down*/
@@ -80,6 +125,59 @@ for some default styling*/
   -webkit-transform: translateY(0px);
   transform: translateY(0px); 
 }
+/*animate slide down or left on captions */
+.tooltip-container .tooltip-activator + .tooltip-caption.arrow-left.on-top {
+  left: calc(100% + 16px);
+  top: -20px;
+  transform: translateX(5px);
+}
+.tooltip-container .tooltip-activator + .tooltip-caption.arrow-left.on-bottom {
+  left: calc(100% + 16px);
+  bottom: -4px;
+  transform: translateX(5px);
+}
+.tooltip-container .tooltip-activator + .tooltip-caption.arrow-left.on-top::before {
+  left: -7px;
+  top: calc(20px + .5em);
+}
+.tooltip-container .tooltip-activator + .tooltip-caption.arrow-left.on-bottom::before {
+  left: -7px;
+  bottom: 13px;
+}
+.tooltip-container .tooltip-activator + .tooltip-caption.arrow-down.on-right {
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateY(-5px) translateX(-75%);
+}
+.tooltip-container .tooltip-activator + .tooltip-caption.arrow-down.on-right::before {
+  transform: translateY(-50%) skew(-45deg, 45deg);
+  bottom: -13px;
+  left: calc(75% - 6px);
+}
+
+.tooltip-container .tooltip-caption::before {
+  border-radius: 1px;
+  content: "";
+  height: 12px;
+  width: 12px;
+  z-index: 1;
+  transform: skew(-45deg, 45deg);
+}
+
+.tooltip-container .tooltip-activator:hover + .tooltip-caption {
+  display: block;
+  opacity: 1;
+}
+
+.tooltip-hoverable:hover + .tooltip-caption {
+  display: block;
+  opacity: 1;
+}
+
+.tooltip-hoverable + .tooltip-caption:hover {
+  display: block;
+  opacity: 1;
+}
 
 .tooltip-container .tooltip-activator:hover + .tooltip-msg::before {
   border-radius: 1px;
@@ -91,16 +189,10 @@ for some default styling*/
 }
 
 .tooltip-container .tooltip-activator:hover + .tooltip-msg::after {
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   content: attr(data-text);
-  font-size: 11px;
-  max-width: 175px;
-  min-width: 125px;
-  padding: 10px;
 }
-
 /*positioning*/
+/*msgs*/
 .tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-down::after {
   transform: translateY(0%);
   bottom: calc(100% + 14px);
@@ -123,7 +215,21 @@ for some default styling*/
   left: 50%;
   transform: translateY(-0%) translateX(-25%);
 }
+/*captions*/
 
+.tooltip-container .tooltip-activator:hover + .tooltip-caption.arrow-down.on-right {
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateY(-0%) translateX(-75%);
+}
+.tooltip-container .tooltip-activator:hover + .tooltip-caption.arrow-left {
+  transform: translateX(0);
+}
+/*.tooltip-container .tooltip-activator:hover + .tooltip-caption.arrow-down.on-right::before {
+  transform: translateY(-50%) skew(-45deg, 45deg);
+  bottom: -13px;
+  left: calc(75% - 6px);
+}*/
 /*default coloring styles*/
 .tooltip-container.dark .tooltip-msg {
   color: #fff;
@@ -148,3 +254,18 @@ for some default styling*/
   background-color: #fff;
 }
 
+.tooltip-container.light .tooltip-caption {
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+.tooltip-container.light .tooltip-caption::before {
+  background-color: #fff;
+}
+.tooltip-container.light .tooltip-caption.arrow-down::before {
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.tooltip-container.light .tooltip-caption.arrow-left::before {
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}

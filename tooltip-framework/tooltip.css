@@ -52,6 +52,7 @@ for some default styling*/
   padding: 10px;
   border-radius: 6px;
   font-size: 15px;
+  display: none;
 }
 
 .tooltip-container .tooltip-msg {

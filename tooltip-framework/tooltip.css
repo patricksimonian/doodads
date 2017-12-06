@@ -35,7 +35,15 @@ for some default styling*/
     <button class="tooltip-activator" aria-hidden="true">whatsup yoo?</button>
     <div class="tooltip-msg abs arrow-down on-right" data-text="**message inside popup**"></div>
   </div>*/
-
+/*using the tooltip caption class*/
+/*<div class="tooltip-container light help-icon" aria-hidden="true">
+    <div class="tooltip-activator tooltip-hoverable">
+      <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+    </div>
+    <div id="YOUR ID FOR CUST STYLING HERE" class="tooltip-caption abs arrow-left on-top">
+     YOUR CUSTOM CONTENT HERE!
+    </div>
+  </div>*/
 .tooltip-container  {
   display: inline-block;
   height: 1em;

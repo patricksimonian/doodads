@@ -3,7 +3,7 @@
 /*USAGE*/
 
 /*markup
-  <div class="tooltip-container [optional dark/light]">
+  <div class="tooltip-container [optional dark/light] [optional tooltip-d1s/tooltip-d500ms/tooltip-d2s]">
     <someElement class="tooltip-activator"></someElement>
     <div class="tooltip-msg *positioning class* *arrow-direction class* *arrow-position-class*"
       data-text="**message inside popup**"></div>
@@ -37,13 +37,13 @@ for some default styling*/
   </div>*/
 /*using the tooltip caption class*/
 /*<div class="tooltip-container light help-icon" aria-hidden="true">
-    <div class="tooltip-activator tooltip-hoverable">
-      <i class="fa fa-question-circle-o" aria-hidden="true"></i>
-    </div>
-    <div id="YOUR ID FOR CUST STYLING HERE" class="tooltip-caption abs arrow-left on-top">
-     YOUR CUSTOM CONTENT HERE!
-    </div>
-  </div>*/
+  <div class="tooltip-activator tooltip-hoverable">
+    <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+  </div>
+  <div id="YOUR ID FOR CUST STYLING HERE" class="tooltip-caption abs arrow-left on-top">
+   YOUR CUSTOM CONTENT HERE!
+  </div>
+</div>*/
 .tooltip-container  {
   display: inline-block;
   height: 1em;
@@ -75,6 +75,19 @@ for some default styling*/
   transition: all .75s cubic-bezier(0.19, 1, 0.22, 1);
   width: 100%;
   z-index: 1;
+}
+/*transition delays*/
+.tooltip-container.tooltip-d500ms .tooltip-msg, .tooltip-container.tooltip-d500ms .tooltip-caption {
+  -webkit-transition-delay: 500ms;
+  transition-delay: 500ms;
+}
+.tooltip-container.tooltip-d1s .tooltip-msg, .tooltip-container.tooltip-d1s .tooltip-caption {
+  -webkit-transition-delay: 1s;
+  transition-delay: 1s;
+}
+.tooltip-container.tooltip-d2s .tooltip-msg, .tooltip-container.tooltip-d2s .tooltip-caption {
+  -webkit-transition-delay: 2s;
+  transition-delay: 2s;
 }
 
 .tooltip-activator:hover.tooltip-hoverable::after {
@@ -163,6 +176,16 @@ for some default styling*/
   bottom: -13px;
   left: calc(75% - 6px);
 }
+/*animate slide up on regular msgs*/
+.tooltip-container .tooltip-msg.arrow-up {
+  -webkit-transform: translateY(5px);
+  transform: translateY(5px);
+}
+
+.tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-up {
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px); 
+}
 
 .tooltip-container .tooltip-caption::before {
   border-radius: 1px;
@@ -214,6 +237,19 @@ for some default styling*/
   left: calc(50% - 6px);
   /*added default positioning incase froget to add arrow positioning class*/
 }
+/*arrow up*/
+.tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-up::after {
+  transform: translateY(0%);
+  top: calc(100% + 14px);
+  left: -1em;
+  /*added default positioning incase froget to add arrow positioning class*/
+}
+.tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-up::before {
+  transform: translateY(50%) skew(-45deg, 45deg);
+  top: calc(1em + 3px);
+  left: calc(50% - 6px);
+  /*added default positioning incase froget to add arrow positioning class*/
+}
 .tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-down.on-right::after {
   bottom: calc(100% + 14px);
   left: 50%;
@@ -221,6 +257,17 @@ for some default styling*/
 }
 .tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-down.on-left::after {
   bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateY(-0%) translateX(-25%);
+}
+/*arrow up*/
+.tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-up.on-right::after {
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateY(-0%) translateX(-75%);
+}
+.tooltip-container .tooltip-activator:hover + .tooltip-msg.arrow-up.on-left::after {
+  top: calc(100% + 14px);
   left: 50%;
   transform: translateY(-0%) translateX(-25%);
 }

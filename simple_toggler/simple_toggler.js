@@ -6,7 +6,6 @@ var SimpleToggler = function(widgets, options) {
     this.widgets = widgets;
     this.map = new Map();
     return this.initialize();
-  }
 }
 
 SimpleToggler.defaultOptions = function() {

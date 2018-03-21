@@ -7,7 +7,7 @@
     var cycleNum;
     // check if we have the cycleNumber function, if not just use a place holder
     // function
-    if(!NumUtils || !NumUtils.cycleNumber) {
+    // if(!NumUtils || !NumUtils.cycleNumber) {
       cycleNum = function cycleNumber(value, incrementer, limit, startingPoint = 0) {
         value += incrementer;
         if(value > limit) {
@@ -15,9 +15,9 @@
         }
         return value;
       }
-    } else {
-      cycleNum = NumUtils.cycleNumber;
-    }
+    // } else {
+    //   cycleNum = NumUtils.cycleNumber;
+    // }
     let hslThemes = {
       soft: {
         makeAsUniqueAsPossible: true,
